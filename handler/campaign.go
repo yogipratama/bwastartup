@@ -11,15 +11,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type CampaignHandler struct {
+type campaignHandler struct {
 	service campaign.Service
 }
 
-func NewCampaignHandler(service campaign.Service) *CampaignHandler {
-	return &CampaignHandler{service}
+func NewCampaignHandler(service campaign.Service) *campaignHandler {
+	return &campaignHandler{service}
 }
 
-func (h *CampaignHandler) GetCampaigns(c *gin.Context) {
+func (h *campaignHandler) GetCampaigns(c *gin.Context) {
 	userID, _ := strconv.Atoi(c.Query("user_id"))
 
 	campaigns, err := h.service.GetCampaigns(userID)
@@ -33,7 +33,7 @@ func (h *CampaignHandler) GetCampaigns(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
-func (h *CampaignHandler) GetCampaign(c *gin.Context) {
+func (h *campaignHandler) GetCampaign(c *gin.Context) {
 	var input campaign.GetCampaignDetailInput
 
 	err := c.ShouldBindUri(&input)
@@ -54,7 +54,7 @@ func (h *CampaignHandler) GetCampaign(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
-func (h *CampaignHandler) CreateCampaign(c *gin.Context) {
+func (h *campaignHandler) CreateCampaign(c *gin.Context) {
 	var input campaign.CreateCampaignInput
 	err := c.ShouldBindJSON(&input)
 	if err != nil {
@@ -80,7 +80,7 @@ func (h *CampaignHandler) CreateCampaign(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
-func (h *CampaignHandler) UpdateCampaign(c *gin.Context) {
+func (h *campaignHandler) UpdateCampaign(c *gin.Context) {
 	var inputID campaign.GetCampaignDetailInput
 
 	err := c.ShouldBindUri(&inputID)
@@ -115,7 +115,7 @@ func (h *CampaignHandler) UpdateCampaign(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
-func (h *CampaignHandler) SaveCampaignImage(c *gin.Context) {
+func (h *campaignHandler) SaveCampaignImage(c *gin.Context) {
 	var input campaign.CreateCampaignImageInput
 
 	err := c.ShouldBind(&input)
